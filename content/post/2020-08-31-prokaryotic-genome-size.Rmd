@@ -34,26 +34,36 @@ Prokaryotic genomes encompass a range of sizes whereby larger genomes may encode
 
 ## The Size of a Prokaryotic Genomes
 
-As an frame of reference, the familiar laboratory workhorse *Escherichia coli* K12 has a genome size of 4.64 Mb.
+As a frame of reference, the familiar laboratory workhorse *Escherichia coli* K12 has a genome size of 4.64 Mb.
 
-![The *E coli* K12 reference genome from NCBI prokaryotic genomes.](/post/EcoliGenome.png)
+![The *E coli* K12 reference genome from NCBI prokaryotic genomes.](/img/EcoliGenome.png)
 
 On August 31, 2020, I downloaded a list of the NCBI RefSeq Prokaryotic Genomes. The list included statistics such as genome length for each genome.
 
-![The Criteria Selected to Obtain a List of NCBI Refseq Prokaryotic Genomes.](/post/RefSeqGenomes.png)
+![The Criteria Selected to Obtain a List of NCBI Refseq Prokaryotic Genomes.](/img/RefSeqGenomes.png)
 
-The list was downloaded as a csv file. Let's import the csv file and calculate some statistics for prokaryotic genome size.
+
+
+The list was downloaded from NCBI as a csv file, and I have made this file [available for download](/files/prokaryotes.csv). Let's import the csv file and calculate some statistics for prokaryotic genome size.
 
 ```{r message=FALSE}
 library(tidyverse)
 
+# Read the table into 
 prokaryote.genomes.table <- read_csv(file = "prokaryotes.csv")
 
-head(prokaryote.genomes.table) 
+# Display the first few lines of the data frame.
+head(prokaryote.genomes.table)
+
+# How many genomes have data for length?
+length(prokaryote.genomes.table$`Size(Mb)`)
+
+# Display the minimum, maximum, mean, median, and 1st and 3rd quartiles for the genome sizes.
+summary(prokaryote.genomes.table$`Size(Mb)`)
 
 ```
 
-Let's calculate some statistics for genome size:
+Let's look at the summary statistics for genome size:
 
 1. n = `r length(prokaryote.genomes.table$'Size(Mb)')`
 2. mean = `r mean(prokaryote.genomes.table$'Size(Mb)')`
@@ -129,7 +139,7 @@ qplot(data=prokaryote.genomes.table.split.reduced,
 
 ```
 
-Based upon the separated density plots, it looks as if the genome size varies by phylum. Let's see how much it varies by phylum:
+Based upon the separated density plots, it looks as if the genome size varies by phylum. Let's see how much mean genome size varies by phylum:
 
 1. Euryarchaeota = `r mean(subset(prokaryote.genomes.table.split, Phylum == "Euryarchaeota")$'Size(Mb)')`
 2. FCB group = `r mean(subset(prokaryote.genomes.table.split, Phylum == "FCB group")$'Size(Mb)')`
@@ -138,9 +148,11 @@ Based upon the separated density plots, it looks as if the genome size varies by
 5. Spirochaetes = `r mean(subset(prokaryote.genomes.table.split, Phylum == "Spirochaetes")$'Size(Mb)')`
 6. Terrabacteria group = `r mean(subset(prokaryote.genomes.table.split, Phylum == "Terrabacteria group")$'Size(Mb)')`
 
-Thus, it appears that phylum-dependent genome size variation ranges from 3.2 to 5.3 Mb.
+Thus, it appears that phylum-dependent, mean genome size ranges from 3.2 to 5.3 Mb.
 
 ## Genome Size Positively Correlates with Number of Coding Sequences
+
+The prokaryotic genomes table from NCBI also indicates the number of coding sequences (CDS) in each genome. By creating a scatterplot of genome size vs. CDS, we may examine the relationship between genome size and number of CDS.
 
 ```{r}
 library(ggplot2)
@@ -153,7 +165,7 @@ qplot(data = prokaryote.genomes.table.split,
 
 ```
 
-Genome size is strongly and positively correlated with the number of Coding Sequences (CDS) in the genome; put another way, larger genomes have more genes. There are outliers, though, and while those with zero CDS values may be attributable to missing CDS annotation, those with higher than expected CDS should be further explored. Archaea appear to follow a trend similar to Bacteria.
+Genome size is strongly and positively correlated with the number of CDS in the genome; put another way, larger genomes have more genes. There are outliers, though, and while those with zero CDS values may be attributable to missing CDS annotation, those with higher than expected CDS should be further explored. Archaea appear to follow a trend similar to Bacteria.
 
 Let's check to see if the outliers are associated with a single finishing level:
 
@@ -171,4 +183,6 @@ It appears that the outliers with zero CDS are mixed, but most of those with abn
 
 ## Conclusion
 
-The genome sizes in this set of `r length(prokaryote.genomes.table$'Size(Mb)')` RefSeq representative prokaryotes vary by phylum and span nearly two orders of magnitude from the smallest at `r min(prokaryote.genomes.table$'Size(Mb)')` Mb to the largest at `r max(prokaryote.genomes.table$'Size(Mb)')` Mb. The median genome size was determined to be `r median(prokaryote.genomes.table$'Size(Mb)')` megabases and is a useful approximation that may be used to estimate, for instance, the number of genome equivalents in a given quantity of DNA, or in determining the number of genome equivalents required by a sequencing library preparation, or in determining the number of genome equivalents in the output of a DNA sequencing run.
+The genome sizes in this set of `r length(prokaryote.genomes.table$'Size(Mb)')` RefSeq representative prokaryotes vary by phylum and span nearly two orders of magnitude from the smallest at `r min(prokaryote.genomes.table$'Size(Mb)')` Mb to the largest at `r max(prokaryote.genomes.table$'Size(Mb)')` Mb. The median genome size was determined to be `r median(prokaryote.genomes.table$'Size(Mb)')` Mb and is a useful approximation that may be used to estimate, for instance, the number of genome equivalents in a given quantity of DNA, or in determining the number of genome equivalents required by a sequencing library preparation, or in determining the number of genome equivalents in the output of a DNA sequencing run.
+
+This webpage was written using R Markdown, and the [Rmd file is available for download](/files/2020-08-31-prokaryotic-genome-size.Rmd) and is viewable as plain text or within RStudio.

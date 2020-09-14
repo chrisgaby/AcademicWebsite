@@ -1,13 +1,13 @@
 ---
 title: "Microbial community characterization during anaerobic digestion of Scenedesmus spp. under mesophilic and thermophilic conditions"
 date: 2017-01-01
-publishDate: 2019-07-23T17:18:08.222455Z
+publishDate: 2020-09-14T16:41:33.246879Z
 authors: ["Silvia Greses", "John Christian Gaby", "Daniel Aguado", "José Ferrer", "Aurora Seco", "Svein Jarle Horn"]
 publication_types: ["2"]
 abstract: "Microbial communities were thoroughly characterized in a mesophilic anaerobic membrane bioreactor (AnMBR) and a thermophilic continuous stirred tank reactor (CSTR), which were both treating recalcitrant microalgal biomass dominated by Scenedesmus. 16S rRNA amplicon sequencing analysis was performed when the AnMBR achieved 70% algal biodegradation and revealed high microbial diversity, probably due to the high solid retention time (SRT) of the AnMBR configuration. The bacterial community consisted of Chloroflexi (27.9%), WWE1 (19.0%) and Proteobacteria (15.4%) as the major phyla, followed by Spirochaetes (7.7%), Bacteroidetes (5.9%) and Firmicutes (3.6%). These phyla are known to exhibit proteolytic and cellulolytic capabilities required to degrade the Scenedesmus cell-wall. Methanosaeta was the most abundant methanogen detected in the AnMBR suggesting that methane was mainly produced by the acetoclastic pathway. In comparison, the thermophilic CSTR achieved 32.6% algal biodegradation, and its bacterial community had fewer Operational Taxonomic Units (977 OTUs) than the AnMBR (1396 OTUs), as is generally observed for high temperature biogas reactors. However, phyla with high hydrolytic potential were detected such as Firmicutes (34.6%) and the candidate taxon EM3 (38.7%) in the thermophilic CSTR. Although the functional metabolism of EM3 in anaerobic digesters is unknown, the high abundance of EM3 suggests that this taxon plays an important role in the thermophilic, anaerobic degradation of Scenedesmus. The abundant syntrophic bacteria and the detection of hydrogenotrophic methanogens in the thermophilic CSTR suggest that the hydrogenotrophic pathway was the dominant pathway for methane production in this reactor."
 featured: false
 publication: "*Algal Research*"
-tags: ["Anaerobic digestion", "Membrane technology", "Microbial community analysis", "Scenedesmus spp."]
+tags: ["anaerobic digestion", "biogas", "biomethane", "membrane technology", "microbial community analysis", "Scenedesmus spp.", "16S", "SSU rRNA", "amplicon sequence analysis"]
 url_pdf: "http://dx.doi.org/10.1016/j.algal.2017.09.002"
 doi: "10.1016/j.algal.2017.09.002"
 ---

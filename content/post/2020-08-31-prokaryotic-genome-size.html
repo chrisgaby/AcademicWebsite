@@ -49,7 +49,7 @@ draft: false
 <p>The list was downloaded from NCBI as a csv file, and I have made this file <a href="/files/prokaryotes.csv">available for download</a>. Let’s import the csv file and calculate some statistics for prokaryotic genome size.</p>
 <pre class="r"><code>library(tidyverse)
 
-# Read the table into 
+# Read the table into a tibble.
 prokaryote.genomes.table &lt;- read_csv(file = &quot;prokaryotes.csv&quot;)
 
 # Display the first few lines of the data frame.
@@ -188,5 +188,5 @@ qplot(data = prokaryote.genomes.table.split,
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
 <p>The genome sizes in this set of 11710 RefSeq representative prokaryotes vary by phylum and span nearly two orders of magnitude from the smallest at 0.185014 Mb to the largest at 16.0407 Mb. The median genome size was determined to be 4.050955 Mb and is a useful approximation that may be used to estimate, for instance, the number of genome equivalents in a given quantity of DNA, or in determining the number of genome equivalents required by a sequencing library preparation, or in determining the number of genome equivalents in the output of a DNA sequencing run.</p>
-<p>This webpage was written using R Markdown, and the <a href="/files/2020-08-31-prokaryotic-genome-size.Rmd">Rmd file is available for download</a> and is viewable as plain text or within RStudio.</p>
+<p>This webpage was composed using R Markdown, and the <a href="/files/2020-08-31-prokaryotic-genome-size.Rmd">Rmd file is available for download</a> and may be viewed as a plain text file or by opening the file within RStudio.</p>
 </div>

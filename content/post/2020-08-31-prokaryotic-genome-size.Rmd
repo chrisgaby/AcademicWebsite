@@ -49,7 +49,7 @@ The list was downloaded from NCBI as a csv file, and I have made this file [avai
 ```{r message=FALSE}
 library(tidyverse)
 
-# Read the table into 
+# Read the table into a tibble.
 prokaryote.genomes.table <- read_csv(file = "prokaryotes.csv")
 
 # Display the first few lines of the data frame.
@@ -185,4 +185,4 @@ It appears that the outliers with zero CDS are mixed, but most of those with abn
 
 The genome sizes in this set of `r length(prokaryote.genomes.table$'Size(Mb)')` RefSeq representative prokaryotes vary by phylum and span nearly two orders of magnitude from the smallest at `r min(prokaryote.genomes.table$'Size(Mb)')` Mb to the largest at `r max(prokaryote.genomes.table$'Size(Mb)')` Mb. The median genome size was determined to be `r median(prokaryote.genomes.table$'Size(Mb)')` Mb and is a useful approximation that may be used to estimate, for instance, the number of genome equivalents in a given quantity of DNA, or in determining the number of genome equivalents required by a sequencing library preparation, or in determining the number of genome equivalents in the output of a DNA sequencing run.
 
-This webpage was written using R Markdown, and the [Rmd file is available for download](/files/2020-08-31-prokaryotic-genome-size.Rmd) and is viewable as plain text or within RStudio.
+This webpage was composed using R Markdown, and the [Rmd file is available for download](/files/2020-08-31-prokaryotic-genome-size.Rmd) and may be viewed as a plain text file or by opening the file within RStudio.

@@ -10,8 +10,8 @@ view: 4
 
 # Optional header image (relative to `static/img/` folder).
 header:
-  caption: "Test"
+  caption: ""
   image: ""
 ---
 
-Test
+These are John Christian Gaby's publications that appear in books and peer reviewed journals.

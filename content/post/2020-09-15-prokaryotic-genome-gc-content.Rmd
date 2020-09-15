@@ -1,0 +1,91 @@
+---
+title: Prokaryotic Genome GC Content
+author: John Christian Gaby
+date: '2020-09-15'
+slug: prokaryotic-genome-gc-content
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-09-15T22:53:36+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+draft: true
+---
+
+## Introduction
+
+## Genome GC Composition Variation
+
+In a previous blogpost, I examined a prokaryotic genome metadata table from NCBI in order to determine the range of prokaryotic genome sizes. The same data table has the GC% for each prokaryotic genmoe. I will now examine the range of GC contents for the prokaryotes represented in that table.
+
+```{r GCHistogram, message=FALSE}
+library(ggplot2)
+library(tidyverse)
+
+setwd("/home/chrisgaby/github/My_Website/")
+
+# Read the table into a tibble.
+prokaryote.genomes.table <- read_csv(file = "./static/files/prokaryotes.csv")
+
+# Display the minimum, maximum, mean, median, and 1st and 3rd quartiles for the genome sizes.
+summary(prokaryote.genomes.table$`GC%`)
+
+```
+
+Now, let's take a look at the distribution of GC%.
+
+```{r}
+library(ggplot2)
+
+qplot(data = prokaryote.genomes.table, 
+      x = `GC%`, 
+      binwidth = 1)
+
+```
+
+The distribution is bimodal. Let's see if that breaks down according to phylum.
+
+```{r}
+library(ggplot2)
+
+# Split the Organism Groups column into new columns named according to their respective taxonomy level
+prokaryote.genomes.table.split <- separate(data=prokaryote.genomes.table, 
+                                           col = `Organism Groups`, 
+                                           sep = ";", 
+                                           into = c("Domain", "Phylum", "Class"))
+
+phyla.subset.names <- names(which(summary(factor(prokaryote.genomes.table.split$Phylum)) > 90))
+prokaryote.genomes.table.split.reduced <- prokaryote.genomes.table.split[prokaryote.genomes.table.split$Phylum == phyla.subset.names[1] | 
+                                 prokaryote.genomes.table.split$Phylum == phyla.subset.names[2] | 
+                                 prokaryote.genomes.table.split$Phylum == phyla.subset.names[3] | 
+                                 prokaryote.genomes.table.split$Phylum == phyla.subset.names[4] | 
+                                 prokaryote.genomes.table.split$Phylum == phyla.subset.names[5] | 
+                                 prokaryote.genomes.table.split$Phylum == phyla.subset.names[6],]
+
+qplot(data=prokaryote.genomes.table.split.reduced, 
+      x = `GC%`, 
+      geom = "density", 
+      color = Phylum, 
+      fill = Phylum, 
+      alpha = I(0.2))
+```
+
+It looks like some phyla have a bimodal GC% distribution too. Let's break them up by facets.
+
+```{r, fig.height = 8, fig.width = 10, fig.align = "center"}
+library(ggplot2)
+
+qplot(data=prokaryote.genomes.table.split.reduced, 
+      x = `GC%`, 
+      geom = "density", 
+      color = Phylum, 
+      fill = Phylum, 
+      facets = Phylum ~ .)
+
+```

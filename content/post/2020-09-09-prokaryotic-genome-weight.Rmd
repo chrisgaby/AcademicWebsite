@@ -23,6 +23,20 @@ math: true
 
 In a previous blogpost, I explored [prokaryotic genome size](/post/prokaryotic-genome-size/index.html) (i.e. the length of a prokaryotic genome in number of nucleotides). In this blogpost, I will take the previously determined genome sizes and multiply them against the molecular weight of a DNA base pair to arrive at the mass of a prokaryotic genome. I start by examining the structural components of DNA (the 4 nitrogenous bases, a pentose sugar called deoxyribose, and phosphate) and their elemental composition, and then I will determine the amount of mass variation that could result from natural variation in genome GC content. 
 
+## Load Packages
+
+Let's load the packages that we'll use in this blogpost up front so that we don't have to search the code snippets in order to find the dependencies. There are 2 packages that we'll use:
+
+1. Tidyverse for importing data into a Tibble object
+2. PeriodicTable, which includes a function for retrieving the atomic masses of the elements
+
+```{r}
+library(tidyverse)
+library(PeriodicTable)
+
+```
+
+
 ## Determining the Number of Atoms of Each Element in a DNA Base Pair
 
 DNA is a macromolecule that consists of a sequence of chemically linked nucleotides. Nucleotides are comprised of a nucleoside linked to a phosphate. Nucleosides consist of a nitrogenous base such as a purine (A or G) or a pyrimidine (T or C) linked to a sugar, which in the case of DNA is the pentose sugar deoxyribose. Hence, there are 3 components of DNA:
@@ -78,7 +92,6 @@ I will now calculate the molecular mass of beta-D-2-Deoxyribose. For reference, 
 The mass of each element is conveniently accessible via the `mass()` function in the R package `PeriodicTable`.
 
 ```{r}
-library(PeriodicTable)
 
 # Create the data frame based on the formula for deoxyribose.
 deoxyribose.df1<- data.frame(element = c("C","H","O"), freq = c(5,10,4))
@@ -108,10 +121,9 @@ I'll obtain the number of C, N, O, and H atoms in each nitrogenous base by using
 
 ![The molecular structure of adenine.](/img/adenine.jpg)
 
-I will obtain the number of atoms of each element in the adenine strucutre by parsing its [PDB file](/files/adenine.pdb).
+I will obtain the number of atoms of each element in the adenine structure by parsing its [PDB file](/files/adenine.pdb).
 
 ```{r, message = FALSE, warning = FALSE}
-library(tidyverse)
 
 # Read the adenine PDB file into a tibble, skipping the first row
 # that causes the column of interest to be missed.
@@ -134,7 +146,6 @@ Next, I will calculate the total molar mass of the adenine molecule. To do this,
 
 
 ```{r}
-library(PeriodicTable)
 
 # Change to a data frame.
 A.df <- as.data.frame(A.table)
@@ -166,8 +177,6 @@ Hence, the molar mass of adenine is determined to be `r sum(A.df3[,"MW.tot"])` g
 I will now adapt the previous code for determining the molar mass of adenine into a custom function named `nucMolarMass`, which takes as input the PDB file, extracts the column that lists each atom in the molecule, and sums the mass of all atoms to obtain the overall molar mass for the nitrogenous base.
 
 ```{r, message = FALSE, warning = FALSE}
-library(tidyverse)
-library(PeriodicTable)
 
 nucMolarMass <- function(filename) 
 {
@@ -241,7 +250,6 @@ We can see from the images and calculations above that the 4 nitrogenous bases v
 Now let's examine the molar mass of an AT and a GC base pair to determine whether they may have substantially different masses. Here I'll use the PDB file for a GC base pair to extract the number of atoms of each element in the same manner as for calculating the molar mass of the nitrogenous bases. 
 
 ```{r, message = FALSE, warning = FALSE}
-library(tidyverse)
 
 # Read the CG base pair PDB file into a tibble. Skip the first 2 rows that
 # do not contain the desired data.
@@ -263,7 +271,6 @@ CG.table
 It looks like the GC base pair has the formula C~19~H~24~N~8~O~12~P~2~. Let's determine the molecular mass of the GC base pair using the following code, which is similar to how we calculated the molecular mass of adenine above.
 
 ```{r}
-library(PeriodicTable)
 
 # Change to a data frame.
 CG.df <- as.data.frame(CG.table)
@@ -287,7 +294,6 @@ And thus the molar mass of a GC base pair is 618.3878 g/mol.
 Now let's perform the same calculation of molecular mass for an AT base pair.
 
 ```{r, message = FALSE, warning = FALSE}
-library(tidyverse)
 
 # Read the CG base pair PDB file into a tibble. Skip the first 2 rows that
 # do not contain the desired data.
@@ -312,7 +318,6 @@ Now let's calculate the molecular weight of an AT base pair.
 
 
 ```{r}
-library(PeriodicTable)
 
 # Change to a data frame.
 AT.df <- as.data.frame(AT.table)

@@ -2,9 +2,17 @@
 active: true
 date_format: '2006'
 experience:
+- company: Genomics and Bioinformatics Research Unit of the United States Department of Agriculture
+  company_url: https://www.ars.usda.gov/southeast-area/stoneville-ms/genomics-and-bioinformatics-research/
+  date_end: ''
+  date_start: '2020-10-25'
+  description: "  Areas of focus include:\n  \n  * Genomics\n  * Machine Learning\n\
+    \  * Sequence Graphs\n  "
+  location: Gainesville, FL, USA
+  title: Microbiologist Res. As.
 - company: The Norwegian University of Life Sciences (NMBU)
   company_url: https://www.nmbu.no/
-  date_end: ''
+  date_end: '2020-01-31'
   date_start: '2016-02-01'
   description: "  Areas of focus include:\n  \n  * Metagenomics\n  * Metaproteomics\n\
     \  * SSU rRNA Sequence Analysis\n  * Microbiome Analysis in R\n  * Illumina Sequencing\n\

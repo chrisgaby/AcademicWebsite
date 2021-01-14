@@ -14,8 +14,8 @@ role: Researcher (Microbiology PhD)
 
 # Organizations/Affiliations
 organizations:
-- name: The Norwegian University of Life Sciences (NMBU)
-  url: "https://www.nmbu.no/"
+- name: Genomics and Bioinformatics Research Unit of the United States Department of Agriculture
+  url: "https://www.ars.usda.gov/southeast-area/stoneville-ms/genomics-and-bioinformatics-research/"
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include microbial ecology, biological nitrogen fixation, metagenomics, and bioinformatics.
@@ -74,4 +74,4 @@ user_groups:
 - Visitors
 ---
 
-John Christian Gaby is a researcher of microbial ecology at The Norwegian University of Life Sciences (NMBU) in Ås, Norway where he is integrated within the Bioinformatics and Applied Statistics group. His research interests include microbial ecology, biological nitrogen fixation, metagenomics, and bioinformatics. He contributes to projects on anaerobic digestion and biogas production, intestinal microbiomes, and soil microbial ecology.
+John Christian Gaby is a Microbiologist with the Genomics and Bioinformatics Research Unit of the United States Department of Agriculture. His research interests include microbial ecology, biological nitrogen fixation, metagenomics, and bioinformatics. He currently works on the development of machine learning models to predict prokaryotic phenotype from genome sequence data.

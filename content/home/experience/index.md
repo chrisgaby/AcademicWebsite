@@ -9,7 +9,7 @@ experience:
   description: "  Areas of focus include:\n  \n  * Genomics\n  * Machine Learning\n\
     \  * Sequence Graphs\n  "
   location: Gainesville, FL, USA
-  title: Microbiologist Res. As.
+  title: Research Microbiologist Research Associate
 - company: The Norwegian University of Life Sciences (NMBU)
   company_url: https://www.nmbu.no/
   date_end: '2020-01-31'

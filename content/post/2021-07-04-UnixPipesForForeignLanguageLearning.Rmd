@@ -1,17 +1,17 @@
 ---
-title: "Create a Word List"
-author: "John Christian Gaby"
+title: Create a Word List
+author: John Christian Gaby
 date: '2021-07-04'
 output: html_document
 
-subtitle: Use UNIX Commands to Create an Alphabetized Word List from a Plain Text File
-summary: In this blogpost, I use UNIX BASH shell commands to create an alphabetized list of unique words from the Spanish literary work Don Quijote by Cervantes.
+subtitle: 'Use UNIX Commands to Create an Alphabetized Word List from a Plain Text File'
+summary: 'In this blogpost, I use UNIX BASH shell commands to create an alphabetized list of unique words from the Spanish literary work Don Quijote by Cervantes.'
 
 slug: literary-word-list
 categories: ['UNIX', 'BASH', 'foreign language']
 tags: ['UNIX', 'BASH', 'foreign language', 'Spanish', 'language learning', 'word list', 'vocabulary list', 'literature', 'text mining']
 authors: [John Christian Gaby]
-lastmod:
+lastmod: '2021-07-13T22:55:36+02:00'
 featured: no
 
 # Featured image

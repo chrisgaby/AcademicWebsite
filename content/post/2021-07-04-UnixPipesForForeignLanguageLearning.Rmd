@@ -1,0 +1,200 @@
+---
+title: "Create a Word List"
+author: "John Christian Gaby"
+date: '2021-07-04'
+output: html_document
+
+subtitle: Use UNIX Commands to Create an Alphabetized Word List from a Plain Text File
+summary: In this blogpost, I use UNIX BASH shell commands to create an alphabetized list of unique words from the Spanish literary work Don Quijote by Cervantes.
+
+slug: literary-word-list
+categories: ['UNIX', 'BASH', 'foreign language']
+tags: ['UNIX', 'BASH', 'foreign language', 'Spanish', 'language learning', 'word list', 'vocabulary list', 'literature', 'text mining']
+authors: [John Christian Gaby]
+lastmod:
+featured: no
+
+# Featured image
+# To use, add an image named `featured.jpg/png` to your page's folder.
+# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+
+# Projects (optional).
+#   Associate this post with one or more of your projects.
+#   Simply enter your project's folder or file name without extension.
+#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
+#   Otherwise, set `projects = []`.
+projects: []
+draft: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Vocabulary lists are a useful way to identify words of unknown meaning when reading a document. In particular, students of a foreign language may find a vocabulary list useful when preparing to read a literary work. A comprehensive vocabulary list can be quickly created from a plain text file on a computer by using a series of UNIX shell commands. The commands can even generate a list that is alphabetized and non-redundant. Herein I will demonstrate the use of UNIX shell commands to derive such a vocabulary list of Spanish words from the literary work *Don Quijote*, written by Miguel de Cervantes Saavedra.
+
+## Download Plain Text of Cervantes' *Don Quijote*
+
+First, the book is downloaded in plain text format from its location on the Project Gutenberg website. It is saved locally in the working directory as the file `CervantesDonQuijote.txt`. The command `wget` downloads files from the world wide web via http, https, or ftp, and by using the `-O` parameter, we may specify the name of the file to be saved in the working directory of our computer.
+
+```{bash}
+wget https://www.gutenberg.org/files/2000/2000-0.txt -O CervantesDonQuijote.txt
+
+```
+
+## Identify the Gutenberg Header and Footer for Removal
+
+Project Gutenberg ebooks contain a header that includes identifying information on the ebook such as title, author, and language. Following the body of the literary work, there is a footer that contains the Project Gutenberg License. As the header and footer are extraneous to the literary work, the lines on which they occur will be identified in order to later remove them and leave only the text of *Don Quijote*. 
+
+The UNIX shell command `cat`, short for "concatenate", reads the contents of a file and outputs them, and as its name implies may be used to concatenate multiple files. In our case, we will only use it to read and output our text file. The UNIX shell command `head` displays a set number of lines from the beginning, or "head", of a file, whereas the command `tail` does the same, but at the end, or "tail", of a file. The pipe character `|` takes the output of a command and uses it as input for the subsequent command, enabling a chain of commands to perform operations on a single data source without having to save and reload the new version of the data that results from each command.
+
+The `-n` parameter of the `head` and `tail` commands specifies the number of lines to output, and one has to progressively increase the number of lines until one can see that the entirety of the header or footer is displayed, then note the line numbers where the beginning and end of the literary text occur.
+
+```{bash}
+# Find the header.
+cat CervantesDonQuijote.txt --number | head -n 50
+
+# Find the footer.
+cat CervantesDonQuijote.txt --number | tail -n 400
+
+```
+
+Reading the line numbers that are displayed at the left of the output, the text of the book begins on line 29 and ends on line 37699.
+
+## List Characters That Occur in the Text
+
+In processing the text to create the vocabulary list, we will need to delete punctuation, numbers, and other characters that are not letters of the alphabet that occur in the vocabulary words themselves. Otherwise, when punctuation occurs adjacent to a word, then we could end up with multiple occurrences of the word, differing by the adjacent puctuation, in our vocabulary list, such as occurs in the following:
+
+abajo
+
+abajo,
+
+abajo;
+
+abajo.
+
+whereby we can see that 4 instances of the word "abajo" are created because of the attached punctuation characters. Hence, punctuation should be eliminated from the text in order to create a non-redundant vocabulary list.
+
+The following piped commands will list the unique characters in the text after standard punctuation has been deleted. The pipe begins with the sed command, short for `stream editor`, which can edit text. In our case, we use it to simply read the text file and exclude the Project Gutenberg header and footer as explained earlier. Then, the `tr` command, short for `translate` as it may be used to replace one character with another, is used to delete punctuation characters in the "punctuation character class", which is a pre-defined list of punctuation characters that is invoked with `[:punct:]`. The command `grep`, short for "global regular expression print", allows searching for pattern matches. In our case, the `-o` parameter, which from the help for the command is said to "show only the part of a line matching PATTERN", is combined with the REGEX wildcard ".", which represents any character except the newline character. When used in this way the `grep` command effectively breaks the text up into one character on each line of the output, which is then sorted with the `sort` command into alphabetical order, and then the `uniq` command reduces the list to only the unique characters that appear in the text (minus the punctuation characters that were deleted by the `tr -d '[:punct:]'` command of course).
+
+```{bash}
+sed -n '29,27699p' CervantesDonQuijote.txt | tr -d '[:punct:]' | grep -o . | sort | uniq
+
+```
+
+At the top of the output, we can see 5 characters that are not included in the punctuation character class, and thus were not removed:
+
+¡ ¿ « » —
+
+We'll need to specifically name these characters for deletion in order to make the vocabulary list.
+
+## Create An Alphabetical Dictionary of Don Quijote
+
+Below, a piped series of commands creates an initial version of the non-redundant, alphabetized vocabulary list. It contains 10 commands:
+
+1. As described above, the `sed` command reads the text file and outputs its contents while excluding the extraneous Project Gutenberg text by reading the file at the line right after the header ends and stopping at the line right before the footer begins.
+2. The `tr` command replaces the space character " " with newlines indicated by `\n`, effectively separating each word onto its own line.
+3. The `sed` command is again invoked to remove the `¡` character, which is unique to the Spanish text and will not be removed by deleting the punctuation character class `'[:punct:]'` later in the pipe. For some reason that I do not know, but that I nevertheless discovered through trial and error, attempting to delete this character using the `tr` command results in misconversion of the á character throughout words in the list. 
+4. The `tr` command is used to convert uppercase letters to lowercase, thus eliminating redundant occurrences of words due to capitalization of the first letter of the word at the beginning of sentences. Commands in UNIX are generally case-sensitive.
+5. The `tr` command is used to delete digits, or numbers throughout.
+6. The `tr` command is used to delete the punctuation characters `«»—¿` that were identified as specific to this text and missed by the standard punctuation character class `'[:punct:]'`.
+7. The `tr` command is used to delete the standard punctuation character class.
+8. The `tr` command is used to delete occurrences of carriage returns with the escape sequence `\r`.
+9. The `sort` command arranges te output alphabetically and at this point contains multiple occurrences of identical words.
+10. The `uniq` command reduces multiple occurrences of the same word to a single instance.
+11. Finally, the `>` indicates for the standard output to be re-directed to a file named `CervantesDonQuijoteSpanishWordList.txt'. The `>` will overwrite the file if it already exists but will create it if it doesn't already exist.
+
+```{bash}
+sed -n '29,37699p' CervantesDonQuijote.txt | tr " " "\n" | sed 's/¡//' | tr [:upper:] [:lower:] | tr -d '[:digit:]' | tr -d "«»—¿" | tr -d '[:punct:]' | tr -d '\r' | sort | uniq > CervantesDonQuijoteSpanishWordList.txt
+
+```
+
+## Examine the First and Last 10 Words in the List
+
+Let's use the `head` and `tail` commands to examine the first 10 and last 10 words in the list.
+
+```{bash}
+head CervantesDonQuijoteSpanishWordList.txt
+
+tail CervantesDonQuijoteSpanishWordList.txt
+
+```
+
+This small sample of words in the list looks good. However, on deeper inspection of the list in a text editor, I identified the occurrence of Roman numerals, and these will need to be removed.
+
+## Identify and Remove Roman Numerals
+
+Roman numerals consist of the characters "ivxlcm", and they appear in our list because the characters used to denote them are also used in regular words. To remove Roman numerals, we'll need to find the lines in the vocabulary list that consist solely of the characters "ivxlcm", and for this we'll use the `grep` command with a regular expression that specifies the word must begin with these characters, consist of one or more of the characters, and end with these characters. The following code produces a list of words consisting of the Roman numeral characters:
+
+```{bash}
+# This also grabs real words like "mi", "mil", "vi", vil", "civil".
+grep "^[ivxlcm]*$" CervantesDonQuijoteSpanishWordList.txt 
+
+```
+
+Upon review of this list, we can see that the real Spanish words "mi", "mil", "vi", vil", and "civil" are captured by this regular expression. To examine lines of the literary text where a particular word occurs, the following `grep` command may be used with the `-n` parameter, which prints the line number on the left before printing the content of the line where the match was found.
+
+```{bash}
+grep -n " vil " CervantesDonQuijote.txt
+
+```
+
+The real Spanish words may be excluded from this `grep` command by using a "negative lookahead", invoked with the `?!` symbols. The `-P` parameter specifies to use the Perl form of regular expressions.
+
+Lets see if the numbers add up; i.e. is the number of unique words in the first version of the text minus the number of roman numerals equal to the number of words remaining in the text once we have removed the roman numerals?
+
+```{bash}
+# This command produces the number of unique words in the first version of the text.
+wc -l CervantesDonQuijoteSpanishWordList.txt
+
+# Include a "negative lookahead" in the regular expression that excludes real words from the Roman numeral characters
+# This command produces the number of occurrences of unique roman numerals in the text.
+grep -P '(?!^civil$|^mi$|^mil$|^vil$|^vi$)^[ivxlcm]*$' CervantesDonQuijoteSpanishWordList.txt | wc -l
+
+# This command produces the number of unique words remaining in the text once the unique roman numerals have been removed.
+grep -v -P '(?!^civil$|^mi$|^mil$|^vil$|^vi$)^[ivxlcm]*$' CervantesDonQuijoteSpanishWordList.txt | wc -l
+
+```
+
+## Save the Vocabulary List Without Roman Numerals
+
+Now we'll save the final vocabulary list without the Roman numerals as the file `CervantesDonQuijoteSpanishWordListNoRomanNumerals.txt`. The grep command is used with the `-v` parameter, which outputs the inverse of the result. In our case, this will output all words in the first saved iteration of the vocabulary list except the Roman numerals.
+
+```{bash}
+grep -v -P '(?!^civil$|^mi$|^mil$|^vil$|^vi$)^[ivxlcm]*$' CervantesDonQuijoteSpanishWordList.txt > CervantesDonQuijoteSpanishWordListNoRomanNumerals.txt
+```
+
+## How Many Unique Words Are in *Don Quijote*?
+
+Finally, we may now answer the question "How many unique words are in *Don Quijote*?" by using the `wc` command, short for "word count", and specifying the `-l` parameter to count lines in the file. Since only one word appears on each line of the file, then the line count equals the word count.
+
+```{bash}
+wc -l CervantesDonQuijoteSpanishWordListNoRomanNumerals.txt
+
+```
+
+There are `r length(readLines("/home/chrisgaby/github/My_Website/content/post/CervantesDonQuijoteSpanishWordListNoRomanNumerals.txt"))` unique words in *Don Quijote*.
+
+## Summary
+
+We have taken the text of the literary work *Don Quijote* by Miguel de Cervantes Saavedra and used a series of UNIX shell commands to process the text into a non-redundant, alphabetized vocabulary list.
+
+## Future Work
+
+There are several possibilities for additional text mining using this literary work as a data source.
+
+One possibility is to further reduce the vocabulary list into "lemmas", which are the dictionary or reference form of words. For example, the words "catch", "caught", "catched", and "catching" are all forms of "catch", and hence all occurrences of these words may be reduced to the single lemma "catch" that encompasses the general meaning of the four word forms.
+
+Another possibility is to perform frequency analysis, whereby one may produce a list of the words that recur most often througout the book, and a word cloud may be used to create a visual representation of the highest frequency words.
+
+The frequency of occurrence of multiple words, or word n-grams, may be analyzed rather than the frequency of single words alone. N-grams are a contiguous sequence of n words, where n is a number. A 2-gram, for example, is also called a bigram (e.g. "full moon" or "rainy day") and a 3-gram is called a trigram (e.g. "simple but elegant"), and so on. There are a whole suite of concepts to refer to the various types of multi-word expressions (MWEs) including collocations, verbal idioms, frozen adverbials, partical verbs, complex nominals, etc. N-gram analysis and other more sophisticated analyses may be employed to extract MWEs, although a larger body of literary works may be needed in order to identify less common MWEs.
+
+Finally, if one already has a list of known vocabulary words, then one may remove the list of one's personal vocabulary from the vocabulary list derived from the literary work, therby leaving only the unknown or unfamiliar words to remain for study or memorization. Alternatively, the words in common between two literary works may be identified. As yet another example, the words found in a body of text but not present in a dictionary may identify slang or words otherwise missing from the dictionary. These tasks effectively involve set functions such the union, intersection, and complement.
+
+These ideas may be explored in subsequent blog posts.

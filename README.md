@@ -1,42 +1,33 @@
-# [Academic Kickstart](https://sourcethemes.com/academic/)
+# Files to Build John Christian Gaby's Personal Website
 
-**Academic** makes it easy to create a beautiful website for free using Markdown, Jupyter, or RStudio. Customize anything on your site with widgets, themes, and language packs. [Check out the latest demo](https://academic-demo.netlify.com/) of what you'll get in less than 10 minutes, or [view the showcase](https://sourcethemes.com/academic/#expo).
+This repository contains the files needed to build [John Christian Gaby's personal website](https://chrisgaby.github.io/).
 
-**Academic Kickstart** provides a minimal template to kickstart your new website.
+## Content
 
-- [**Get Started**](#install)
-- [View the documentation](https://sourcethemes.com/academic/docs/)
-- [Ask a question](http://discuss.gohugo.io/)
-- [Request a feature or report a bug](https://github.com/gcushen/hugo-academic/issues)
-- Updating? View the [Update Guide](https://sourcethemes.com/academic/docs/update/) and [Release Notes](https://sourcethemes.com/academic/updates/)
-- Support development of Academic:
-  - [Donate a coffee](https://paypal.me/cushen)
-  - [Become a backer on Patreon](https://www.patreon.com/cushen)
-  - [Decorate your laptop or journal with an Academic sticker](https://www.redbubble.com/people/neutreno/works/34387919-academic)
-  - [Wear the T-shirt](https://academic.threadless.com/)
+The website is built with [Hugo](https://gohugo.io/), a static website builder, using a template for the `Academic` theme, which has since undergone multiple updates and has been rebranded [Wowchemy](https://wowchemy.com/).
 
-[![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png)](https://github.com/gcushen/hugo-academic/)
+The website content is created using Markdown, RMarkdown, and Jupyter Notebook.
 
-## Install
+The website is formatted as a Curriculum Vitae to provide up-to-date information on John Christian Gaby's career accomplishments and professional skills. It is also a site where he publishes blogposts on bioinformatics and data analysis. In addition, in the blogposts section he has also published galleries of some examples of his botanical photography.
 
-You can choose from one of the following four methods to install:
+## Use These Commands to Rebuild and Push to Github
 
-* [**one-click install using your web browser (recommended)**](https://sourcethemes.com/academic/docs/install/#install-with-web-browser)
-* [install on your computer using **Git** with the Command Prompt/Terminal app](https://sourcethemes.com/academic/docs/install/#install-with-git)
-* [install on your computer by downloading the **ZIP files**](https://sourcethemes.com/academic/docs/install/#install-with-zip)
-* [install on your computer with **RStudio**](https://sourcethemes.com/academic/docs/install/#install-with-rstudio)
+In the root repository folder for the website, use the following BASH commands to push changes to the GitHub repository the contains the files needed to build the website:
 
-Then [personalize your new site](https://sourcethemes.com/academic/docs/get-started/).
+1. `git add .`
+2. `git commit -m "Repo update blogpost 2"`
+3. `git push -u origin master # use '--force' if necessary`
 
-## Ecosystem
+Next, build the website with Hugo, which creates and organizes all the files needed for the website in the `pubic` folder off of the root repository folder, and then push the `public` folder to GitHub:
 
-* **[Academic Admin](https://github.com/sourcethemes/academic-admin):** An admin tool to import publications from BibTeX or import assets for an offline site
-* **[Academic Scripts](https://github.com/sourcethemes/academic-scripts):** Scripts to help migrate content to new versions of Academic
+1. `hugo`
+2. `cd public`
+3. `git add .`
+4. `git commit -m "Web update blogpost 2"`
+5. `git push origin master`
+
+To check the appearance of the website before pushing, one can run the BASH command 'hugo server' then open http://localhost:1313/ in a web browser.
 
 ## License
 
-Copyright 2017-present [George Cushen](https://georgecushen.com).
-
-Released under the [MIT](https://github.com/sourcethemes/academic-kickstart/blob/master/LICENSE.md) license.
-
-[![Analytics](https://ga-beacon.appspot.com/UA-78646709-2/academic-kickstart/readme?pixel)](https://github.com/igrigorik/ga-beacon)
+The original Academic theme for Hugo is copyright of [George Cushen](https://georgecushen.com), 2017-present, and is released under the [MIT](https://github.com/sourcethemes/academic-kickstart/blob/master/LICENSE.md) license.

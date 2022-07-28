@@ -2,9 +2,16 @@
 active: true
 date_format: '2006'
 experience:
+- company: Biotech Startup (Microbiome)
+  company_url:
+  date_end: ''
+  date_start: '2022-02-07'
+  description: "  Areas of focus include:\n  \n  * Microbial Isolation\n  * Bioinformatics\n  "
+  location: Durham, NC, USA
+  title: Senior Scientist II
 - company: Genomics and Bioinformatics Research Unit of the United States Department of Agriculture
   company_url: https://www.ars.usda.gov/southeast-area/stoneville-ms/genomics-and-bioinformatics-research/
-  date_end: ''
+  date_end: '2022-02-06'
   date_start: '2020-10-25'
   description: "  Areas of focus include:\n  \n  * Genomics\n  * Machine Learning\n\
     \  * Sequence Graphs\n  "

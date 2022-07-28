@@ -61,7 +61,7 @@ time_format = "3:04 PM"
 # Enter contact details (optional). To hide a field, clear it to "".
 email = "jchristiangaby@gmail.com"
 #phone = "888 888 88 88"
-address = {street = "", city = "Gainesville", region = "", postcode = "", country = "USA", country_code = "US"}
+address = {street = "", city = "Durham", region = "", postcode = "", country = "USA", country_code = "US"}
 
 # Office hours: use `<br>` to insert a line break, or set to "" to remove office hours
 office_hours = ""
@@ -97,7 +97,7 @@ office_hours = ""
 #   3: OpenStreetMap (Mapbox)
 #map = 2
 #map_api_key = ""
-coordinates = {latitude = "29.637228", longitude = "-82.351875"}
+coordinates = {latitude = "35.896334", longitude = "-78.872769"}
 #zoom = 15
 
 ############################

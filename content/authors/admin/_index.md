@@ -14,11 +14,11 @@ role: Researcher (Microbiology PhD)
 
 # Organizations/Affiliations
 organizations:
-- name: Genomics and Bioinformatics Research Unit of the United States Department of Agriculture
-  url: "https://www.ars.usda.gov/southeast-area/stoneville-ms/genomics-and-bioinformatics-research/"
+- name: Biotech Startup (Microbiome)
+  url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include microbial ecology, biological nitrogen fixation, metagenomics, and bioinformatics.
+bio: My research interests include microbial ecology, biological nitrogen fixation, microbial genomics, metagenomics, and bioinformatics.
 
 interests:
 - Microbial Ecology
@@ -74,4 +74,4 @@ user_groups:
 - Visitors
 ---
 
-John Christian Gaby is a Microbiologist with the Genomics and Bioinformatics Research Unit of the United States Department of Agriculture. His research interests include microbial ecology, biological nitrogen fixation, metagenomics, and bioinformatics. He currently works on the development of machine learning models to predict prokaryotic phenotype from genome sequence data.
+John Christian Gaby is a Microbiologist whose interests include microbial ecology, biological nitrogen fixation, microbial genomics, metagenomics, and bioinformatics.
